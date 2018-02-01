@@ -1,7 +1,11 @@
 const BillingCycle = require('./billingCycle')
+const errorHandler= require('../common/errorHandler')
 
 BillingCycle.methods(['post', 'get', 'put', 'delete'])
 BillingCycle.updateOptions({ new: true, runValidators: true })
+
+//Aplicando error hanlder - Interceptar depois de fazer o post e put
+BillingCycle.after('post', errorHandler).after('put', errorHandler)
 
 // Faz a contagem de registros que existem na "tabela" do banco
 BillingCycle.route('count', (req, res, next) => {
